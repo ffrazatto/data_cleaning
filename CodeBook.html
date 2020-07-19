@@ -371,7 +371,7 @@ summary {
 <h2>Content</h2>
 <p>This codebook is divided in 4 sections:</p>
 <ol style="list-style-type: decimal">
-<li>Variables;</li>
+<li>Variables</li>
 <li>Data Cleaning</li>
 <li>Transformations</li>
 <li>Final Data</li>
@@ -379,7 +379,7 @@ summary {
 </div>
 <div id="variables" class="section level2">
 <h2>1. Variables</h2>
-<p>From the provided “README.txt” and “features.txt” files (“UCI HAR Dataset” folder), a good descripition is avaliable for each variable measurement and proceadure in obtaining it. Here a more succint description will be presented, however you will notice that the title of each variable is fairly understandable by itself.</p>
+<p>From the provided “README.txt” and “features.txt” files (inside “UCI HAR Dataset” folder), a good descripition is avaliable for each variable measurement and proceadure in obtaining it. Here a more succint description will be presented, however you will notice that the title of each variable is fairly understandable by itself.</p>
 <p>The “morphology”, so to speak, of the variable names follows this format:</p>
 <p><code>domain-where-sensor-jerk?-function-axes/magnitude-[unit]</code></p>
 <ul>
@@ -387,9 +387,9 @@ summary {
 <li><code>where</code>: measurement of the <strong>body</strong> or <strong>gravity</strong>;</li>
 <li><code>sensor</code>: <strong>accelerometer</strong> or <strong>gyrometer</strong>;</li>
 <li><code>jerk</code>: if the <strong>jerk</strong> was’t calculated this term wont’t be present;</li>
-<li><code>function</code>: <strong>mean</strong> or standard deviation(<strong>std</strong>) of the variable;</li>
-<li><code>axes/magnitude</code>: the axis where it was measured (X, Y or Z) or it is the <strong>magnitude</strong>;</li>
-<li><code>[unit]</code>: the unit of the variable, it can be <strong>g</strong>, <strong>g/s</strong>, <strong>rad/s</strong> or <strong>rad/s^2</strong>.</li>
+<li><code>function</code>: feature’s <strong>mean</strong> or standard deviation(<strong>std</strong>);</li>
+<li><code>axes/magnitude</code>: feature’s axis where it was measured (X, Y or Z) or its <strong>magnitude</strong>;</li>
+<li><code>[unit]</code>: feature’s unit, it can be <strong>g</strong>, <strong>g/s</strong>, <strong>rad/s</strong> or <strong>rad/s^2</strong>.</li>
 </ul>
 <p>Some exemples:</p>
 <ul>
@@ -401,17 +401,18 @@ summary {
 <p>The last column is the “activity” which describes how the measurement was made. It can assume the values “walking”, “walking-upstairs”, “walking-downstairs”, “laying”, “sitting” and “standing”.</p>
 </div>
 <div id="data-cleaning" class="section level2">
-<h2>Data Cleaning</h2>
+<h2>2. Data Cleaning</h2>
 <p>The initial data had various different variables, such as max, min, correlation values etc. However the assignment stated that only the mean and standard deviation values were to be used in the final dataframe, so only the columns containing “mean” and “std” in their names should be selected.</p>
-<p>First of all, the correct labels for the activities and features were assigned to all columns for both data sets (test and training), making identification easier. Afterwars, the data sets were merged together.</p>
+<p>First of all, the correct labels for the activities and features were assigned to all columns for both data sets (test and training), making identification easier. Afterwards, the data sets were merged together.</p>
 <p>Then the required mean and standard deviation columns were extracted, and new descriptive labels were assinied to each column, rendering a cleaner data.</p>
 </div>
 <div id="transformations" class="section level2">
-<h2>Transformations</h2>
+<h2>3. Transformations</h2>
 <p>There were only one significant transforamtion that altered the data. As requested, the data set was grouped by activiy and the average for each column was taken.</p>
 </div>
 <div id="final-data" class="section level2">
-<h2>Final Data</h2>
+<h2>4. Final Data</h2>
+<p>The final data is composed by 6 rows and 80 columns. Each row corresponds to a activity: walking, walking-upsatairs, walking-downstairs, laying, sitting and standing. The first column displays the activity in which the measerument was executed and each subsequent column correspods to the average, by activity, of the calculated means and standard deviations of each sensor measurement.</p>
 </div>
 </div>
 

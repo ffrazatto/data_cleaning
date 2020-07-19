@@ -4,19 +4,19 @@
 
 This codebook is divided in 4 sections:
 
-1. Variables;
+1. Variables
 2. Data Cleaning
 3. Transformations
 4. Final Data
 
+
 ## 1. Variables
 
-
-From the provided "README.txt" and "features.txt" files ("UCI HAR Dataset" 
-folder), a good descripition is avaliable for each variable measurement and
-proceadure in obtaining it. Here a more succint description will be presented, 
-however you will notice that the title of each variable is fairly understandable
-by itself.
+From the provided "README.txt" and "features.txt" files (inside "UCI HAR
+Dataset" folder), a good descripition is avaliable for each variable measurement
+and proceadure in obtaining it. Here a more succint description will be
+presented, however you will notice that the title of each variable is fairly 
+understandable by itself.
 
 The "morphology", so to speak, of the variable names follows this format:
 
@@ -26,10 +26,10 @@ The "morphology", so to speak, of the variable names follows this format:
 - `where`: measurement of the **body** or **gravity**;
 - `sensor`: **accelerometer** or **gyrometer**;
 - `jerk`: if the **jerk** was't calculated this term  wont't be present;
-- `function`: **mean** or standard deviation(**std**) of the variable;
-- `axes/magnitude`: the axis where it was measured (X, Y or Z) or it is the 
+- `function`: feature's **mean** or standard deviation(**std**);
+- `axes/magnitude`: feature's axis where it was measured (X, Y or Z) or its 
 **magnitude**;
-- `[unit]`: the unit of the variable, it can be **g**, **g/s**, **rad/s** or
+- `[unit]`: feature's unit, it can be **g**, **g/s**, **rad/s** or
 **rad/s^2**.
 
 Some exemples:
@@ -44,7 +44,7 @@ It can assume the values "walking", "walking-upstairs", "walking-downstairs",
 "laying", "sitting" and "standing".
 
 
-## Data Cleaning
+## 2. Data Cleaning
 
 The initial data had various different variables, such as max, min, correlation 
 values etc. However the assignment stated that only the mean and standard 
@@ -53,23 +53,26 @@ containing "mean" and "std" in their names should be selected.
 
 First of all, the correct labels for the activities and features were assigned
 to all columns for both data sets (test and training), making identification
-easier. Afterwars, the data sets were merged together.
+easier. Afterwards, the data sets were merged together.
 
 Then the required mean and standard deviation columns were extracted, and new 
 descriptive labels were assinied to each column, rendering a cleaner data.
 
 
-## Transformations
+## 3. Transformations
 
 There were only one significant transforamtion that altered the data. As 
 requested, the data set was grouped by activiy and the average for each column
 was taken.
 
 
-## Final Data
+## 4. Final Data
 
-
-
+The final data is composed by 6 rows and 80 columns. Each row corresponds to a 
+activity: walking, walking-upsatairs, walking-downstairs, laying, sitting and
+standing. The first column displays the activity in which the measerument was 
+executed and each subsequent column correspods to the average, by activity, of 
+the calculated means and standard deviations of each sensor measurement.
 
 
 
