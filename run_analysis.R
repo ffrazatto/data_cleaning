@@ -38,15 +38,13 @@ colnames(x_train) <- feats$V2
 
 ### Step 3 - Descriptive activity names
 ## I have chosen to make step 3 before everything else because I think it would
-## reduce time, since the dataframes sizes are smaller. I have kept every
+## reduce time since the dataframes sizes are smaller. I have kept every
 ## "walking*" as a different value because they are 3 distinct types of
-## activities and I don't see the point of merging them together.
-
+## activities and I don't see the point of merging them.
 
 labs <- apply(labs_raw, 1, function(x) sub("[0-9] ", "", x))
 
-
-## I coulnd't think of a better way of doing this, so I ended up doing this 
+## I couldn't think of a better way of doing this, so I ended up doing this 
 ## instead of something more "elegant".
 
 j1 <- c()
@@ -106,7 +104,6 @@ colnames(df_mstd) <- df_mstd %>%
   sub(pattern = "*\\(\\)*", replacement = "")
 
 
-
 ### Append units. 
 ## I am sure that the time domain variables are ok, however
 ## the frequency domain units I have my doubts, maybe they are g.Hz, [m/s].Hz or
@@ -114,16 +111,24 @@ colnames(df_mstd) <- df_mstd %>%
 ## keep all units in the "time domain": g, g/s, rad/s, rad/s^2
 
 b <- colnames(df_mstd) %>% grep(pattern = "*gyrometer*")
-colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b], "[rad/s]", sep = "-")
+colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b],
+                              "[rad/s]",
+                              sep = "-")
 
 b <- colnames(df_mstd) %>% grep(pattern = "*jerk*")
-colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], pattern = "*\\[rad/s\\]*", replacement = "[rad/s^2]")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b],
+                            pattern = "*\\[rad/s\\]*",
+                            replacement = "[rad/s^2]")
 
 b <- colnames(df_mstd) %>% grep(pattern = "*accelerometer*|*gravity*")
-colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b], "[g]", sep = "-")
+colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b],
+                              "[g]",
+                              sep = "-")
 
 b <- colnames(df_mstd) %>% grep(pattern = "*jerk*")
-colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], pattern = "*\\[g\\]*", replacement = "[g/s]")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b],
+                            pattern = "*\\[g\\]*",
+                            replacement = "[g/s]")
 
 b <- colnames(df_mstd) %>% grep(pattern = "*magnitude-mean*")
 colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], 
