@@ -3,7 +3,7 @@
 library(dplyr)
 
 
-### Step 0 - Read Data ###
+### Step 0 - Read Raw Data ###
 
 labs_raw <- read.csv("UCI\ HAR\ Dataset/activity_labels.txt", header = FALSE)
 feats <- read.table("UCI\ HAR\ Dataset/features.txt", header = FALSE)
@@ -36,10 +36,10 @@ colnames(x_train) <- feats$V2
 
 
 
-### Step 3
+### Step 3 - Descriptive activity names
 ## I have chosen to make step 3 before everything else because I think it would
 ## reduce time, since the dataframes sizes are smaller. I have kept every
-## "walking*" as separate values because they are 3 distinct types of
+## "walking*" as a different value because they are 3 distinct types of
 ## activities and I don't see the point of merging them together.
 
 
@@ -105,10 +105,42 @@ colnames(df_mstd) <- df_mstd %>%
   gsub(pattern = "*--*", replacement = "-") %>% 
   sub(pattern = "*\\(\\)*", replacement = "")
 
-# Step 5
+
+
+### Append units. 
+## I am sure that the time domain variables are ok, however
+## the frequency domain units I have my doubts, maybe they are g.Hz, [m/s].Hz or
+## they end up remaining the same after the FFT. In any case I have chosen to 
+## keep all units in the "time domain": g, g/s, rad/s, rad/s^2
+
+b <- colnames(df_mstd) %>% grep(pattern = "*gyrometer*")
+colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b], "[rad/s]", sep = "-")
+
+b <- colnames(df_mstd) %>% grep(pattern = "*jerk*")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], pattern = "*\\[rad/s\\]*", replacement = "[rad/s^2]")
+
+b <- colnames(df_mstd) %>% grep(pattern = "*accelerometer*|*gravity*")
+colnames(df_mstd)[b] <- paste(colnames(df_mstd)[b], "[g]", sep = "-")
+
+b <- colnames(df_mstd) %>% grep(pattern = "*jerk*")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], pattern = "*\\[g\\]*", replacement = "[g/s]")
+
+b <- colnames(df_mstd) %>% grep(pattern = "*magnitude-mean*")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], 
+                            pattern = "*magnitude-mean*",
+                            replacement = "mean-magnitude")
+
+b <- colnames(df_mstd) %>% grep(pattern = "*magnitude-std*")
+colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b], 
+                            pattern = "*magnitude-std*",
+                            replacement = "std-magnitude")
+
+
+
+# Step 5 - Export txt table
 
 df_final <- df_mstd %>%
   group_by(activity) %>% 
   summarise_all("mean")
 
-write.csv(df_final, "final.csv")
+write.table(df_final, "final_tidy.txt", row.name  = FALSE)
