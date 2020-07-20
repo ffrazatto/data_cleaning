@@ -10,17 +10,19 @@ feats <- read.table("UCI\ HAR\ Dataset/features.txt", header = FALSE)
 
 x_test_raw <- read.table("UCI\ HAR\ Dataset/test/X_test.txt", header = FALSE)
 y_test_raw <- read.table("UCI\ HAR\ Dataset/test/y_test.txt", header = FALSE)
+sub_test <- read.table("UCI\ HAR\ Dataset/test/subject_test.txt", header = FALSE)
 
 x_train_raw <- read.table("UCI\ HAR\ Dataset/train/X_train.txt", header = FALSE)
 y_train_raw <- read.table("UCI\ HAR\ Dataset/train/y_train.txt", header = FALSE)
+sub_train <- read.table("UCI\ HAR\ Dataset/train/subject_train.txt", header = FALSE)
 
-## Add set type: 0 for test and 1 for train ##
+## Add set type: 0 for test and 1 for train, and subject column for both##
 ## A hot one encoding could be done here, but choosing only one column keeps
 ## the date a little more tidy
 
 
-y_test <- cbind(rep(0, dim(y_test_raw)[1]), y_test_raw)
-y_train <- cbind(rep(1, dim(y_train_raw)[1]), y_train_raw)
+y_test <- cbind(rep(0, dim(y_test_raw)[1]), sub_test, y_test_raw)
+y_train <- cbind(rep(1, dim(y_train_raw)[1]), sub_train, y_train_raw)
 
 ## Prepare dataframes. First assign names to the rows
 
@@ -28,8 +30,8 @@ x_test <- x_test_raw    # Backup the raw data
 x_train <- x_train_raw  # Backup the raw data
 
 
-colnames(y_test) <- c("test_type", "activity")
-colnames(y_train) <- c("test_type", "activity")
+colnames(y_test) <- c("test_type", "subject_id", "activity")
+colnames(y_train) <- c("test_type", "subject_id", "activity")
 
 colnames(x_test) <- feats$V2
 colnames(x_train) <- feats$V2
@@ -53,14 +55,14 @@ j2 <- c()
 
 for(i in 1:dim(y_test)[1]){
  
-   j1[i] <- labs[y_test[i,2]]
+   j1[i] <- labs[y_test[i,3]]
 
    }
 
 
 for(i in 1:dim(y_train)[1]){
   
-  j2[i] <- labs[y_train[i,2]]
+  j2[i] <- labs[y_train[i,3]]
 
   }
 
@@ -84,7 +86,7 @@ df_mstd <- df_tt %>%
   names %>% 
   grep(pattern = "*mean*|*std*") %>% 
   as.array %>% 
-  select(2, -1, .data = df_tt)
+  select(2, 3,-1, .data = df_tt)
 
 
 #Step 4 - Rename columns
@@ -145,7 +147,7 @@ colnames(df_mstd)[b] <- sub(colnames(df_mstd)[b],
 # Step 5 - Export txt table
 
 df_final <- df_mstd %>%
-  group_by(activity) %>% 
+  group_by(activity, subject_id) %>% 
   summarise_all("mean")
 
 write.table(df_final, "final_tidy.txt", row.name  = FALSE)
