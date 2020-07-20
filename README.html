@@ -400,7 +400,7 @@ summary {
 <p>Each step is better described at the script itself, but this README will briefly describe each step as presented in the last section. For more detailed information please read the run_analisys.R scrip as it was commentd by section and some more “complicated” snippets.</p>
 <div id="step-0-reading-data" class="section level3">
 <h3>2.1 Step 0: Reading data</h3>
-<p>Reads all raw data sets: x_train, y_train, x_test, y_test, features and activities_labels files. Append a new column with the information of data set type (training or test) and assign the correct names for each column based on the features.txt file.</p>
+<p>Reads all raw data sets: x_train, y_train, x_test, y_test, features and activities_labels files. Append two new columns one with the information of data settype (training or test) and the second with the subject’s id, also the correct name for each column is assigned based on the features.txt file.</p>
 </div>
 <div id="step-3-dicriptive-activities-names" class="section level3">
 <h3>2.2 Step 3: Dicriptive Activities Names</h3>
@@ -422,7 +422,7 @@ summary {
 </div>
 <div id="step-5-exporting-data" class="section level3">
 <h3>2.6 Step 5: Exporting Data</h3>
-<p>The data is grouped by activity and the mean is calculated by group. Finally the data is exported with the name “final_tidy.txt”.</p>
+<p>The data is grouped by activity and subject id and the mean is calculated by group. Finally the data is exported with the name “final_tidy.txt”.</p>
 </div>
 </div>
 </div>

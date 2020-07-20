@@ -42,9 +42,9 @@ and some more "complicated" snippets.
 ### 2.1 Step 0: Reading data
 
 Reads all raw data sets: x_train, y_train, x_test, y_test, features and 
-activities_labels files. Append a new column with the information of data set
-type (training or test) and assign the correct names for each column based on
-the features.txt file.
+activities_labels files. Append two new columns one with the information of data
+settype (training or test) and the second with the subject's id, also the
+correct name for each column is assigned based on the features.txt file.
 
 ### 2.2 Step 3: Dicriptive Activities Names
 
@@ -80,8 +80,8 @@ each variable.
 
 ### 2.6 Step 5: Exporting Data
 
-The data is grouped by activity and the mean is calculated by group. Finally the
-data is exported with the name "final_tidy.txt".
+The data is grouped by activity and subject id and the mean is calculated 
+by group. Finally the data is exported with the name "final_tidy.txt".
 
 
 
