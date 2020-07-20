@@ -12,6 +12,13 @@ This codebook is divided in 4 sections:
 
 ## 1. Variables
 
+Each variable corresponds to an activity performed by a subject while wearing a
+smartphone on the waist. The smartphone accelerometer and gyrometer record the
+subject's 3 axis acceleration and angular velocity. Later the jerk (time
+derivative) and FFT is calculated a statistical analisys is made, obtaining
+the max, min, mean, standard deviation, correlatio, median, magnetude etc. for 
+each variable.
+
 From the provided "README.txt" and "features.txt" files (inside "UCI HAR
 Dataset" folder), a good descripition is avaliable for each variable measurement
 and proceadure in obtaining it. Here a more succint description will be
@@ -51,9 +58,9 @@ values etc. However the assignment stated that only the mean and standard
 deviation values were to be used in the final dataframe, so only the columns
 containing "mean" and "std" in their names should be selected. 
 
-First of all, the correct labels for the activities and features were assigned
-to all columns for both data sets (test and training), making identification
-easier. Afterwards, the data sets were merged together.
+First of all, the subject and correct labels for the activities and features
+were assigned to all columns for both data sets (test and training), making 
+identification easier. Afterwards, the data sets were merged together.
 
 Then the required mean and standard deviation columns were extracted, and new 
 descriptive labels were assinied to each column, rendering a cleaner data.
@@ -62,17 +69,18 @@ descriptive labels were assinied to each column, rendering a cleaner data.
 ## 3. Transformations
 
 There were only one significant transforamtion that altered the data. As 
-requested, the data set was grouped by activiy and the average for each column
-was taken.
+requested, the data set was grouped by activiy and subject id then the average 
+for each column was taken.
 
 
 ## 4. Final Data
 
-The final data is composed by 6 rows and 80 columns. Each row corresponds to a 
+The final data is composed by 180 rows and 81 columns. Each row corresponds to a 
 activity: walking, walking-upsatairs, walking-downstairs, laying, sitting and
-standing. The first column displays the activity in which the measerument was 
-executed and each subsequent column correspods to the average, by activity, of 
-the calculated means and standard deviations of each sensor measurement.
+standing for **each subject**. The first column displays the activity in which 
+the measerument was executed, the second is the subject id and each subsequent 
+column correspods to the average, by activity, of the calculated means and 
+standard deviations of each sensor measurement.
 
 
 
